@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表格转形状</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="stylesheet" href="taskpane.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>表格转形状</h1>
+      <p class="subtitle">将表格转换为可编辑的独立形状</p>
+    </header>
+
+    <main class="main-content">
+      <!-- Status Section -->
+      <section class="status-section" id="statusSection">
+        <div class="status-indicator" id="statusIndicator">
+          <span class="status-icon" id="statusIcon">○</span>
+          <span class="status-text" id="statusText">请选择一个表格</span>
+        </div>
+      </section>
+
+      <!-- Options Section -->
+      <section class="options-section">
+        <h2>转换选项</h2>
+
+        <div class="option-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="keepBorder" checked>
+            <span>保留边框样式</span>
+          </label>
+        </div>
+
+        <div class="option-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="keepBackground" checked>
+            <span>保留背景颜色</span>
+          </label>
+        </div>
+
+        <div class="option-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="keepText" checked>
+            <span>保留文本内容</span>
+          </label>
+        </div>
+
+        <div class="option-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="keepTextFormat" checked>
+            <span>保留文本格式</span>
+          </label>
+        </div>
+
+        <div class="option-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="deleteOriginal" checked>
+            <span>转换后删除原表格</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Action Section -->
+      <section class="action-section">
+        <button class="btn btn-primary" id="convertBtn" disabled>
+          <span class="btn-icon">⬚→◻</span>
+          <span>转换为形状</span>
+        </button>
+
+        <button class="btn btn-secondary" id="refreshBtn">
+          <span class="btn-icon">↻</span>
+          <span>刷新选择</span>
+        </button>
+      </section>
+
+      <!-- Progress Section -->
+      <section class="progress-section" id="progressSection" style="display: none;">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <p class="progress-text" id="progressText">正在转换...</p>
+      </section>
+
+      <!-- Result Section -->
+      <section class="result-section" id="resultSection" style="display: none;">
+        <div class="result-message" id="resultMessage"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>版本 1.0.0</p>
+    </footer>
+  </div>
+
+  <script src="taskpane.bundle.js"></script>
+</body>
+</html>

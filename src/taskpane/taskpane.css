@@ -1,0 +1,246 @@
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #323130;
+  background-color: #faf9f8;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 16px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #edebe9;
+}
+
+.header h1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #0078d4;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #605e5c;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+}
+
+/* Status Section */
+.status-section {
+  margin-bottom: 20px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #f3f2f1;
+  border-radius: 4px;
+  border-left: 4px solid #8a8886;
+}
+
+.status-indicator.ready {
+  background-color: #dff6dd;
+  border-left-color: #107c10;
+}
+
+.status-indicator.error {
+  background-color: #fde7e9;
+  border-left-color: #d13438;
+}
+
+.status-indicator.processing {
+  background-color: #deecf9;
+  border-left-color: #0078d4;
+}
+
+.status-icon {
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.status-text {
+  font-size: 13px;
+}
+
+/* Options Section */
+.options-section {
+  margin-bottom: 20px;
+}
+
+.options-section h2 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #323130;
+}
+
+.option-group {
+  margin-bottom: 10px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+}
+
+.checkbox-label:hover {
+  background-color: #f3f2f1;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  accent-color: #0078d4;
+  cursor: pointer;
+}
+
+.checkbox-label span {
+  font-size: 13px;
+}
+
+/* Action Section */
+.action-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-icon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.btn-primary {
+  background-color: #0078d4;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #106ebe;
+}
+
+.btn-primary:disabled {
+  background-color: #c8c6c4;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: white;
+  color: #323130;
+  border: 1px solid #8a8886;
+}
+
+.btn-secondary:hover {
+  background-color: #f3f2f1;
+}
+
+/* Progress Section */
+.progress-section {
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  height: 4px;
+  background-color: #edebe9;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #0078d4;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: #605e5c;
+  text-align: center;
+}
+
+/* Result Section */
+.result-section {
+  margin-bottom: 20px;
+}
+
+.result-message {
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.result-message.success {
+  background-color: #dff6dd;
+  color: #107c10;
+  border: 1px solid #107c10;
+}
+
+.result-message.error {
+  background-color: #fde7e9;
+  color: #d13438;
+  border: 1px solid #d13438;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding-top: 16px;
+  border-top: 1px solid #edebe9;
+}
+
+.footer p {
+  font-size: 11px;
+  color: #a19f9d;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.processing .status-icon {
+  animation: pulse 1.5s ease-in-out infinite;
+}
