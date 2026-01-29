@@ -118,8 +118,12 @@ export async function extractTableData(): Promise<TableData | null> {
           return;
         }
 
-        // Get table reference
-        const table = shape.table;
+        // Get table reference (use type assertion as table property may not be in type definitions)
+        const table = (shape as any).table;
+        if (!table) {
+          resolve(null);
+          return;
+        }
         table.load(['rowCount', 'columnCount']);
         await context.sync();
 
@@ -175,13 +179,15 @@ export async function extractTableData(): Promise<TableData | null> {
               cellText = textRange.text || '';
 
               // Extract text formatting
+              // Check underline using string comparison as TextUnderlineType may not be available
+              const isUnderlined = font.underline && (font.underline as any) !== 'None';
               textFormat = {
                 fontFamily: font.name || defaultTextFormat.fontFamily,
                 fontSize: font.size || defaultTextFormat.fontSize,
                 fontColor: font.color || defaultTextFormat.fontColor,
                 bold: font.bold || false,
                 italic: font.italic || false,
-                underline: font.underline === PowerPoint.TextUnderlineType.single,
+                underline: isUnderlined,
                 horizontalAlignment: mapHorizontalAlignment(paragraph.horizontalAlignment),
                 verticalAlignment: 'middle',
               };

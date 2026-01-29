@@ -72,7 +72,8 @@ export async function createCellShape(
             font.italic = cell.textFormat.italic;
 
             if (cell.textFormat.underline) {
-              font.underline = PowerPoint.TextUnderlineType.single;
+              // Use string value for underline type
+              (font as any).underline = 'Single';
             }
 
             // Set paragraph alignment
@@ -249,7 +250,8 @@ export async function createShapesBatch(
               font.italic = cell.textFormat.italic;
 
               if (cell.textFormat.underline) {
-                font.underline = PowerPoint.TextUnderlineType.single;
+                // Use string value for underline type
+                (font as any).underline = 'Single';
               }
 
               textRange.paragraphFormat.horizontalAlignment = mapAlignment(
