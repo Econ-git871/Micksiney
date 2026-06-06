@@ -75,7 +75,23 @@ python -m job_assistant track due
 ]
 ```
 
-字段对应 `job_assistant/models.py` 里的 `Job`；`description` 越完整，匹配越准。可参考 `job_assistant/data/sample_jobs.json`。
+字段对应 `job_assistant/models.py` 里的 `Job`；`description` 越完整，匹配越准。
+
+📄 **现成模板与填写指南**：见 [`examples/`](examples/)——`jobs.template.json`、`jobs.template.csv`（可用 Excel 填）、以及 `examples/README.md`。
+
+## 从官方 API 拉取（海外，可选）
+
+`--adzuna` 用 [Adzuna](https://developer.adzuna.com) 免费官方 API 半自动拉取岗位（覆盖 gb/us/au/ca/de/fr/in/sg 等，**不含中国大陆**；国内岗位请用上面的 jobs 文件导入）：
+
+```bash
+export ADZUNA_APP_ID=...    # 在 developer.adzuna.com 免费注册获取
+export ADZUNA_APP_KEY=...
+# 不传 --query/--where 时，会根据简历自动生成英文关键词与城市
+python -m job_assistant match --resume 你的简历.pdf --name 樊宇 \
+    --adzuna --country gb --query "strategy consultant" --where London --top 10
+```
+
+要接其它有公开 API 的来源，照 `job_assistant/providers/base.py` 的 `JobProvider` 接口再写一个即可（参考 `adzuna_provider.py`）。
 
 ## 匹配是怎么算的
 
@@ -110,8 +126,9 @@ job_assistant/
 ├── storage.py        # SQLite 进度追踪
 ├── lexicon.py        # 中英技能/角色/城市词库 + 分词
 ├── models.py         # ResumeProfile / Job / Application 等
-├── providers/        # 岗位来源（示例 / 文件；可扩展授权API）
+├── providers/        # 岗位来源：sample / file / adzuna(官方API)；可扩展
 └── data/             # 脱敏示例简历与岗位
+examples/             # jobs 模板(json/csv) 与导入指南
 tests/                # 单元测试（python -m unittest）
 ```
 

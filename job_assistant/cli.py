@@ -39,16 +39,30 @@ def _load_profile(args) -> ResumeProfile:
     return profile
 
 
-def _load_jobs(args):
+def _load_jobs(args, profile=None):
     if getattr(args, "sample", False):
         return SampleProvider().fetch()
+    if getattr(args, "adzuna", False):
+        from .providers import AdzunaProvider
+        provider = AdzunaProvider(country=getattr(args, "country", None) or "gb")
+        try:
+            return provider.fetch(
+                profile,
+                query=getattr(args, "query", None),
+                where=getattr(args, "where", None),
+                results=getattr(args, "results", 20),
+            )
+        except RuntimeError as exc:
+            print(f"❌ {exc}", file=sys.stderr)
+            raise SystemExit(2)
     if getattr(args, "jobs", None):
         try:
             return FileProvider(args.jobs).fetch()
         except (FileNotFoundError, ValueError) as exc:
             print(f"❌ {exc}", file=sys.stderr)
             raise SystemExit(2)
-    print("❌ 请用 --jobs <文件> 指定岗位文件，或用 --sample 使用内置示例。", file=sys.stderr)
+    print("❌ 请用 --jobs <文件> 指定岗位文件、--sample 用内置示例，或 --adzuna 调官方API。",
+          file=sys.stderr)
     raise SystemExit(2)
 
 
@@ -98,7 +112,7 @@ def cmd_parse(args) -> int:
 
 def cmd_match(args) -> int:
     profile = _load_profile(args)
-    jobs = _load_jobs(args)
+    jobs = _load_jobs(args, profile)
     ranked = top_matches(profile, jobs, limit=args.top, min_score=args.min_score)
     if not args.json:
         _print_profile(profile)
@@ -118,7 +132,7 @@ def cmd_match(args) -> int:
 
 def cmd_draft(args) -> int:
     profile = _load_profile(args)
-    jobs = _load_jobs(args)
+    jobs = _load_jobs(args, profile)
     ranked = score_jobs(profile, jobs)
 
     job = None
@@ -209,6 +223,20 @@ def cmd_demo(args) -> int:
 # --------------------------------------------------------------------------- #
 # argument parsing
 # --------------------------------------------------------------------------- #
+def _add_source_args(p: argparse.ArgumentParser) -> None:
+    """Shared岗位来源参数：--jobs / --sample / --adzuna (+ adzuna 细项)。"""
+    src = p.add_mutually_exclusive_group()
+    src.add_argument("--jobs", help="岗位文件（.json/.csv，自行导出）")
+    src.add_argument("--sample", action="store_true", help="使用内置示例岗位")
+    src.add_argument("--adzuna", action="store_true",
+                     help="从 Adzuna 官方API拉取（需 ADZUNA_APP_ID/ADZUNA_APP_KEY）")
+    p.add_argument("--query", help="[adzuna] 搜索关键词（默认据简历自动生成英文关键词）")
+    p.add_argument("--where", help="[adzuna] 地点（默认取简历城市）")
+    p.add_argument("--country", default="gb",
+                   help="[adzuna] 国家代码 gb/us/au/ca/de/fr/in/sg…（默认 gb；不含中国大陆）")
+    p.add_argument("--results", type=int, default=20, help="[adzuna] 拉取条数（默认 20）")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="job-assistant",
@@ -232,9 +260,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_match = sub.add_parser("match", help="对岗位打分排序")
     p_match.add_argument("--resume", required=True, help="简历路径")
     p_match.add_argument("--name", help="手动指定姓名")
-    src = p_match.add_mutually_exclusive_group()
-    src.add_argument("--jobs", help="岗位文件（.json/.csv，自行导出）")
-    src.add_argument("--sample", action="store_true", help="使用内置示例岗位")
+    _add_source_args(p_match)
     p_match.add_argument("--top", type=int, default=10, help="展示前 N 个（默认 10）")
     p_match.add_argument("--min-score", type=float, default=0.0, help="过滤低于该匹配度的岗位")
     p_match.add_argument("--save", action="store_true", help="写入追踪库")
@@ -245,9 +271,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_draft = sub.add_parser("draft", help="为某岗位生成个性化草稿")
     p_draft.add_argument("--resume", required=True, help="简历路径")
     p_draft.add_argument("--name", help="手动指定姓名")
-    dsrc = p_draft.add_mutually_exclusive_group()
-    dsrc.add_argument("--jobs", help="岗位文件（.json/.csv）")
-    dsrc.add_argument("--sample", action="store_true", help="使用内置示例岗位")
+    _add_source_args(p_draft)
     sel = p_draft.add_mutually_exclusive_group()
     sel.add_argument("--job-id", help="按岗位 id 选择")
     sel.add_argument("--rank", type=int, default=1, help="按匹配排名选择（默认 1=最高）")

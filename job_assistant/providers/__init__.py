@@ -12,8 +12,9 @@ the :class:`JobProvider` interface against an official/authorized API.
 """
 from __future__ import annotations
 
+from .adzuna_provider import AdzunaProvider
 from .base import JobProvider
 from .file_provider import FileProvider
 from .sample_provider import SampleProvider
 
-__all__ = ["JobProvider", "FileProvider", "SampleProvider"]
+__all__ = ["JobProvider", "FileProvider", "SampleProvider", "AdzunaProvider"]

@@ -176,3 +176,14 @@ def concept_match(term: str, text_lower: str) -> bool:
     """Whether ``term`` — or any cross-language synonym — occurs in the text."""
     return any(term_in(form, text_lower) for form in concept_forms(term))
 
+
+def to_english(term: str) -> str:
+    """Return an ASCII (English) synonym of ``term`` if one exists, else ``term``.
+
+    Used to turn Chinese resume keywords into a query for English job APIs.
+    """
+    for form in sorted(concept_forms(term)):
+        if form.isascii():
+            return form
+    return term
+
