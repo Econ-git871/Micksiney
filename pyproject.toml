@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "job-assistant"
+version = "0.1.0"
+description = "简历驱动的求职助手（辅助模式：解析简历、匹配岗位、生成个性化草稿）"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = []  # 核心仅用标准库
+
+[project.optional-dependencies]
+pdf = ["pypdf>=4"]
+docx = ["python-docx>=1.1"]
+llm = ["anthropic>=0.40"]
+all = ["pypdf>=4", "python-docx>=1.1", "anthropic>=0.40"]
+
+[project.scripts]
+job-assistant = "job_assistant.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["job_assistant*"]
+
+[tool.setuptools.package-data]
+"job_assistant.data" = ["*.json", "*.md"]

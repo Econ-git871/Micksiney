@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+
+# Tracker database (本地数据)
+*.db
+*.sqlite3
+
+# 个人隐私：绝不提交真实简历 / 导出的岗位（含姓名、电话、邮箱等 PII）
+private/
+resumes/
+*.pdf
+*.docx
+*.doc
+# 注意：job_assistant/data/ 下的脱敏示例(.md/.json)不受影响

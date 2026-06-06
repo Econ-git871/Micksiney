@@ -1,0 +1,7 @@
+# 核心功能仅依赖 Python 标准库 —— 不装任何第三方包也能用：
+#   python -m job_assistant demo
+#
+# 以下为可选增强（按需安装；也可用 `pip install -e .[all]`）：
+pypdf>=4            # 解析 PDF 简历（parse/match --resume xxx.pdf）
+python-docx>=1.1    # 解析 Word(.docx) 简历
+anthropic>=0.40     # draft --llm：调用 Claude 生成更个性化的草稿（需 ANTHROPIC_API_KEY）
