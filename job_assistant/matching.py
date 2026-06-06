@@ -41,7 +41,8 @@ def score_jobs(profile: ResumeProfile, jobs: list[Job]) -> list[Job]:
     ]  # title duplicated so title hits also count toward presence
 
     n = len(jobs)
-    df = {t: sum(1 for jt in job_texts if lexicon.term_in(t, jt)) for t in terms}
+    # concept_match expands each term to its cross-language synonyms (中↔英)
+    df = {t: sum(1 for jt in job_texts if lexicon.concept_match(t, jt)) for t in terms}
 
     for job, jt in zip(jobs, job_texts):
         title_low = job.title.lower()
@@ -49,10 +50,10 @@ def score_jobs(profile: ResumeProfile, jobs: list[Job]) -> list[Job]:
         matched: list[str] = []
         raw = 0.0
         for term in terms:
-            if not lexicon.term_in(term, jt):
+            if not lexicon.concept_match(term, jt):
                 continue
             idf = math.log(1 + n / (1 + df[term]))
-            weight = 1.0 + (TITLE_BONUS if lexicon.term_in(term, title_low) else 0.0)
+            weight = 1.0 + (TITLE_BONUS if lexicon.concept_match(term, title_low) else 0.0)
             raw += weight * idf
             matched.append(term)
         if profile.cities and any(

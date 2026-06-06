@@ -48,6 +48,22 @@ class MatchingTests(unittest.TestCase):
     def test_empty_jobs(self):
         self.assertEqual(score_jobs(_profile(), []), [])
 
+    def test_cross_language_matching(self):
+        """A Chinese resume should match an English job description."""
+        profile = ResumeProfile(
+            skills=["战略规划", "数据分析", "行业研究"],
+            keywords=["战略规划", "数据分析", "行业研究"],
+        )
+        jobs = [
+            Job(title="Strategy Analyst", company="X",
+                description="Strategic planning, data analysis and market research with Python."),
+            Job(title="Barista", company="Cafe",
+                description="Make coffee and serve customers."),
+        ]
+        ranked = score_jobs(profile, jobs)
+        self.assertEqual(ranked[0].title, "Strategy Analyst")
+        self.assertIn("战略规划", ranked[0].matched)  # 中文词命中了英文 JD
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -84,6 +84,7 @@ python -m job_assistant track due
 - 命中**标题**的关键词额外加权；
 - 用 IDF 降低"人人都写"的词的权重；
 - 地点匹配加分；
+- **中英同义词**：中文简历也能匹配英文岗位/JD（如 战略规划↔strategy planning、数据分析↔data analysis、行业研究↔industry research），词库见 `lexicon.py` 的 `SYNONYMS`；
 - 最后归一化为 0–100 的**相对匹配度**（同一批里最契合的≈100）。
 
 详见 `job_assistant/matching.py`。

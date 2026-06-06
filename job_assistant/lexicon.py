@@ -110,3 +110,69 @@ def tokenize_en(text: str) -> list[str]:
 def english_skills(text: str) -> list[str]:
     """ASCII skill tokens present in the text (subset of SKILLS)."""
     return [t for t in tokenize_en(text) if t in _SKILLS_EN_LOWER]
+
+
+# --- Cross-language synonyms (中↔英) ------------------------------------------
+# Each inner list groups equivalent surface forms across Chinese and English so
+# a Chinese resume can match an English job description (and vice versa).
+SYNONYMS: list[list[str]] = [
+    ["战略", "strategy", "strategic"],
+    ["战略规划", "strategy planning", "strategic planning"],
+    ["战略分析", "strategy analysis", "strategic analysis"],
+    ["管理咨询", "咨询", "consulting", "management consulting"],
+    ["顾问", "consultant"],
+    ["分析师", "analyst"],
+    ["研究员", "researcher", "research analyst"],
+    ["行业研究", "industry research"],
+    ["市场研究", "market research"],
+    ["竞品分析", "竞争分析", "competitive analysis", "competitor analysis"],
+    ["尽职调查", "due diligence"],
+    ["数据分析", "data analysis", "data analytics"],
+    ["数据清洗", "data cleaning", "data cleansing"],
+    ["数据获取", "data collection"],
+    ["数据可视化", "可视化", "data visualization"],
+    ["数据挖掘", "data mining"],
+    ["爬虫", "网络爬虫", "crawler", "web scraping", "scraping"],
+    ["建模", "modeling", "modelling"],
+    ["财务建模", "financial modeling"],
+    ["财务分析", "financial analysis"],
+    ["商业分析", "business analysis"],
+    ["商业计划书", "business plan"],
+    ["可行性研究", "feasibility study"],
+    ["机器学习", "machine learning"],
+    ["统计分析", "statistics", "statistical analysis"],
+    ["项目管理", "project management"],
+    ["组织架构", "组织优化", "organization design", "organizational design", "org design"],
+    ["组织诊断", "organizational diagnosis"],
+    ["岗位体系", "job architecture", "job grading"],
+    ["薪酬", "compensation"],
+    ["绩效", "performance management"],
+    ["薪酬绩效", "compensation and benefits", "comp & ben"],
+    ["人才规划", "talent planning", "workforce planning"],
+    ["机构改革", "restructuring", "reorganization"],
+    ["结构化思维", "structured thinking"],
+    ["产业规划", "industrial planning"],
+]
+
+
+def _build_concepts(groups: list[list[str]]) -> dict[str, frozenset[str]]:
+    index: dict[str, frozenset[str]] = {}
+    for group in groups:
+        forms = frozenset(g.lower() for g in group)
+        for form in group:
+            index[form.lower()] = forms
+    return index
+
+
+_CONCEPTS = _build_concepts(SYNONYMS)
+
+
+def concept_forms(term: str) -> frozenset[str]:
+    """All equivalent surface forms of ``term`` (itself if it has no group)."""
+    return _CONCEPTS.get(term.lower(), frozenset({term.lower()}))
+
+
+def concept_match(term: str, text_lower: str) -> bool:
+    """Whether ``term`` — or any cross-language synonym — occurs in the text."""
+    return any(term_in(form, text_lower) for form in concept_forms(term))
+
