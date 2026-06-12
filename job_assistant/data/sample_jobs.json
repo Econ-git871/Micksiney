@@ -1,0 +1,82 @@
+[
+  {
+    "title": "战略咨询顾问",
+    "company": "某管理咨询公司",
+    "location": "上海",
+    "source": "BOSS直聘",
+    "salary": "25-40K",
+    "posted": "2026-06-01",
+    "url": "https://example.com/jobs/strategy-consultant",
+    "description": "负责战略规划、行业研究与市场研究项目；使用结构化思维拆解问题，撰写商业计划书与PPT报告；有管理咨询经验者优先，精通PowerPoint与Excel。"
+  },
+  {
+    "title": "战略规划经理",
+    "company": "某大型国企集团",
+    "location": "武汉",
+    "source": "智联招聘",
+    "salary": "20-35K",
+    "posted": "2026-05-28",
+    "url": "https://example.com/jobs/strategy-planning-mgr",
+    "description": "负责集团十五五规划、产业规划与专项规划；开展外部环境分析、业务现状诊断与营收目标测算；熟悉国企改革，具备战略规划与行业研究能力。"
+  },
+  {
+    "title": "行业研究分析师",
+    "company": "某券商研究所",
+    "location": "北京",
+    "source": "前程无忧",
+    "salary": "20-30K",
+    "posted": "2026-05-30",
+    "url": "https://example.com/jobs/industry-research-analyst",
+    "description": "覆盖重点行业的行业研究与市场研究，使用Python进行数据获取与数据分析，撰写深度研究报告；要求较强的数据分析与结构化思维能力。"
+  },
+  {
+    "title": "数据分析师",
+    "company": "某互联网公司",
+    "location": "武汉",
+    "source": "BOSS直聘",
+    "salary": "18-28K",
+    "posted": "2026-06-02",
+    "url": "https://example.com/jobs/data-analyst",
+    "description": "负责业务数据分析：使用SQL与Python完成数据获取、数据清洗与数据可视化，开展A/B testing，输出分析结论支持决策。"
+  },
+  {
+    "title": "管理咨询顾问（组织与人力）",
+    "company": "某人力资源咨询公司",
+    "location": "深圳",
+    "source": "猎聘",
+    "salary": "20-32K",
+    "posted": "2026-05-20",
+    "url": "https://example.com/jobs/org-hr-consultant",
+    "description": "为客户提供组织架构优化、岗位体系设计、薪酬绩效与人才规划方案；参与机构改革与组织诊断项目；有管理咨询背景优先。"
+  },
+  {
+    "title": "Strategy Analyst",
+    "company": "A Multinational Group",
+    "location": "Shanghai",
+    "source": "LinkedIn",
+    "salary": "30-45K",
+    "posted": "2026-05-25",
+    "url": "https://example.com/jobs/strategy-analyst",
+    "description": "Support corporate strategy with market research, competitive analysis and financial modeling. Strong Python and SQL for data analysis required. Consulting background preferred."
+  },
+  {
+    "title": "前端开发工程师",
+    "company": "某科技公司",
+    "location": "杭州",
+    "source": "BOSS直聘",
+    "salary": "20-35K",
+    "posted": "2026-06-01",
+    "url": "https://example.com/jobs/frontend-engineer",
+    "description": "负责Web前端开发，熟悉React、Vue、JavaScript、TypeScript、CSS与前端工程化；与后端协作完成需求开发。"
+  },
+  {
+    "title": "行政人事专员",
+    "company": "某贸易公司",
+    "location": "武汉",
+    "source": "智联招聘",
+    "salary": "6-9K",
+    "posted": "2026-05-29",
+    "url": "https://example.com/jobs/admin-hr-specialist",
+    "description": "负责日常行政事务、考勤统计、访客接待、办公用品采购与会议安排，协助人事完成入离职手续。"
+  }
+]

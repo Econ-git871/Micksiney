@@ -1,0 +1,20 @@
+[
+  {
+    "title": "把岗位名称粘到这里，例如：战略咨询顾问",
+    "company": "公司名称",
+    "location": "城市，例如：上海",
+    "source": "来源平台，例如：BOSS直聘 / 智联招聘 / LinkedIn",
+    "salary": "薪资范围（可选），例如：25-40K",
+    "url": "岗位链接（可选）",
+    "description": "把职位描述/JD 正文尽量完整地粘到这里——匹配主要看这里。关键词越全越准，例如：战略规划、行业研究、数据分析、Python、SQL、PPT。"
+  },
+  {
+    "title": "数据分析师",
+    "company": "某互联网公司",
+    "location": "武汉",
+    "source": "BOSS直聘",
+    "salary": "18-28K",
+    "url": "https://example.com/job/2",
+    "description": "负责业务数据分析：SQL、Python、数据清洗、数据可视化，输出分析结论支持决策。"
+  }
+]
